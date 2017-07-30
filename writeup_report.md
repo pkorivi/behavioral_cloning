@@ -15,13 +15,13 @@ The steps in developing this project are the following:
 
 [//]: # (Image References)
 
-[image1]: ./examples/placeholder.png "Model Visualization"
-[image2]: ./examples/placeholder.png "Grayscaling"
-[image3]: ./examples/placeholder_small.png "Recovery Image"
-[image4]: ./examples/placeholder_small.png "Recovery Image"
-[image5]: ./examples/placeholder_small.png "Recovery Image"
-[image6]: ./examples/placeholder_small.png "Normal Image"
-[image7]: ./examples/placeholder_small.png "Flipped Image"
+[image1]: ./data_i/model.png "Model Visualization"
+[image2]: ./data_i/c1.jpg "Grayscaling"
+[image3]: ./data_i/r1.jpg "Recovery Image"
+[image4]: ./data_i/r2.jpg "Recovery Image"
+[image5]: ./data_i/r3.jpg "Recovery Image"
+[image6]: ./data_i/n1.jpg "Normal Image"
+[image7]: ./data_i/f1.png "Flipped Image"
 
 
 ---
@@ -75,52 +75,51 @@ For details about how I created the training data, see the next section.
 
 #### 1. Solution Design Approach
 
-The overall strategy for deriving a model architecture was to ...
+The overall strategy for deriving a model architecture is as following:
 
-My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
+My first step was to use a convolution neural network model similar to the Lenet Architecture, I thought this model might be appropriate because the model needed to learn about the road strcuture and few more details. 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting. 
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. The initial model gave a good performance with few weak points. To combat this I have gathered data to help drive the car in the weak points. This improved the performance to good extant but there was still error in some corners and every retraining changed these weak spots. I tried added further data sets but it didnt improve anything. 
 
-To combat the overfitting, I modified the model so that ...
+Then I introduced the Nvidia model which is deeper and can provide better generalization. The model gave good performance. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting and dropout has helped to ease this problem. 
 
-Then I ... 
-
-The final step was to run the simulator to see how well the car was driving around track one. There were a few spots where the vehicle fell off the track... to improve the driving behavior in these cases, I ....
+The data collected previously with Lenet model from the corners and other regions weak spots helped the Nvidia architecture to perform good with least changes. Higher speeds(>25) caused the car to leave track in some regions but under that car performed pretty good. 
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
+
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 18-24) consisted of a convolution neural network with the following layers and layer sizes ...
+The final model architecture in lines 46-63 in [nn_nb.ipnb](https://github.com/pkorivi/behavioral_cloning/blob/master/nn_nb.ipynb) is a Nvidia model.
 
-Here is a visualization of the architecture (note: visualizing the architecture is optional according to the project rubric)
+Here is a visualization of the architecture with details about the layer sizes.
 
 ![alt text][image1]
 
-####3. Creation of the Training Set & Training Process
+#### 3. Creation of the Training Set & Training Process
 
 To capture good driving behavior, I first recorded two laps on track one using center lane driving. Here is an example image of center lane driving:
 
 ![alt text][image2]
 
-I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like starting from ... :
+I then recorded the vehicle recovering from the left side and right sides of the road back to center so that the vehicle would learn to .... These images show what a recovery looks like:
 
 ![alt text][image3]
 ![alt text][image4]
 ![alt text][image5]
 
-Then I repeated this process on track two in order to get more data points.
+Track 2 data didnt improve driving on track 1, so I omitted for current submission. 
 
-To augment the data sat, I also flipped images and angles thinking that this would ... For example, here is an image that has then been flipped:
+To augment the data sat, I also flipped images and angles thinking that this would help car handle situations of rught turns on similar track. If this is not employed the car will be biased towards left turns. For example, here is an image that has then been flipped:
 
 ![alt text][image6]
 ![alt text][image7]
 
-Etc ....
 
-After the collection process, I had X number of data points. I then preprocessed this data by ...
+After the collection process, I had 88k number of data points that are used for training the model.
+
+I finally randomly shuffled the data set and put 20% of the data into a validation set. 
+
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 2 as evidenced in the code. I used an adam optimizer so that manually training the learning rate wasn't necessary.
 
 
-I finally randomly shuffled the data set and put Y% of the data into a validation set. 
-
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was Z as evidenced by ... I used an adam optimizer so that manually training the learning rate wasn't necessary.
