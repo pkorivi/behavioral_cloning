@@ -16,7 +16,7 @@ The steps in developing this project are the following:
 [//]: # (Image References)
 
 [image1]: ./data_i/model.png "Model Visualization"
-[image2]: ./data_i/c1.jpg "Grayscaling"
+[image2]: ./data_i/c1.jpg "Center Image"
 [image3]: ./data_i/r1.jpg "Recovery Image"
 [image4]: ./data_i/r2.jpg "Recovery Image"
 [image5]: ./data_i/r3.jpg "Recovery Image"
@@ -79,11 +79,11 @@ The overall strategy for deriving a model architecture is as following:
 
 My first step was to use a convolution neural network model similar to the Lenet Architecture, I thought this model might be appropriate because the model needed to learn about the road strcuture and few more details. 
 
-In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. The initial model gave a good performance with few weak points. To combat this I have gathered data to help drive the car in the weak points. This improved the performance to good extant but there was still error in some corners and every retraining changed these weak spots. I tried added further data sets but it didnt improve anything. 
+In order to gauge how well the model was working, I split my image and steering angle data into a training and validation set. The initial model gave a good performance with few weak points. To combat this I have gathered data to help drive the car in the weak points. This improved the performance to good extant but there was still error in some corners and every retraining changed these weak spots. I tried adding further data sets but it didn't improve the performance. 
 
-Then I introduced the Nvidia model which is deeper and can provide better generalization. The model gave good performance. I found that my first model had a low mean squared error on the training set but a high mean squared error on the validation set. This implied that the model was overfitting and dropout has helped to ease this problem. 
+Then I introduced the Nvidia model which is deeper and can provide better generalization. The model gave good performance. Dropouts were introduced to counter overfitting of data.
 
-The data collected previously with Lenet model from the corners and other regions weak spots helped the Nvidia architecture to perform good with least changes. Higher speeds(>25) caused the car to leave track in some regions but under that car performed pretty good. 
+The data collected previously with Lenet model from the corners and other regions weak spots helped the Nvidia architecture to perform good with least changes. Higher speeds(>25) caused the car to leave track in some regions, gave good performance at lower speeds.
 
 At the end of the process, the vehicle is able to drive autonomously around the track without leaving the road.
 
@@ -113,6 +113,7 @@ Track 2 data didnt improve driving on track 1, so I omitted for current submissi
 To augment the data sat, I also flipped images and angles thinking that this would help car handle situations of rught turns on similar track. If this is not employed the car will be biased towards left turns. For example, here is an image that has then been flipped:
 
 ![alt text][image6]
+
 ![alt text][image7]
 
 
@@ -120,6 +121,4 @@ After the collection process, I had 88k number of data points that are used for 
 
 I finally randomly shuffled the data set and put 20% of the data into a validation set. 
 
-I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 2 as evidenced in the code. I used an adam optimizer so that manually training the learning rate wasn't necessary.
-
-
+I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was 2 as evidenced in the code. I used an adam optimizer so that manually tuning the learning rate wasn't necessary.
