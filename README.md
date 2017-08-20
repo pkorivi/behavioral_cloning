@@ -2,6 +2,13 @@
 
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
+[Report](./writeup_report.md)
+
+[Result](./nvidia_model.mp4)
+
+[code](./nn_nb.ipynb	)
+
+
 Overview
 ---
 This repository contains starting files for the Behavioral Cloning Project.
